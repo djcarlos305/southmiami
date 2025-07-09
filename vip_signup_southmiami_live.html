@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BT's VIP Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; background: #000; color: #fff; padding: 20px; }
+    h2 { color: yellow; }
+    small, label { color: white; display: block; margin-bottom: 10px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; font-size: 16px; }
+    button { background: #e91e63; color: white; border: none; }
+    .icon-line { font-size: 14px; margin-top: 5px; margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <h2>JOIN THE SOUTH MIAMI VIP LIST</h2>
+  <small>✱ Fields marked with an asterisk are required</small>
+
+  <form id="vipForm">
+    <input type="text" name="name" placeholder="✱ Your Name" required />
+    <input type="tel" name="phone" placeholder="✱ Your Phone Number" required />
+
+    <label for="birthdate">When’s your birthday?</label>
+    <input type="date" name="birthdate" id="birthdate" required />
+
+    <label for="socials">Social Medias</label>
+    <div class="icon-line">📸 Instagram 🐦 Twitter 📘 Facebook</div>
+    <input type="text" name="socials" placeholder="Your social media tags" />
+
+    <button type="submit">Join Now</button>
+  </form>
+
+  <p id="message"></p>
+
+  <script>
+    const form = document.getElementById('vipForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const obj = Object.fromEntries(data.entries());
+
+      // Send to Google Apps Script
+      const response = await fetch('https://script.google.com/macros/s/AKfycbznBiVjPzOCtPsBWYaMo4U8wSONodSzc_W1L91RmBqhz3WEG-HoXXIiWyoOFjI_5Lg/exec', {
+        method: 'POST',
+        body: JSON.stringify(obj),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      document.getElementById('message').innerText = "You're on the list! Check your text!";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
